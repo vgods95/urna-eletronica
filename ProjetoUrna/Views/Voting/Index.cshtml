@@ -4,111 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Urna Eletrônica</h1>
-<p>Tela onde será construída a urna</p>
+<link href="~/css/UrnaEletronica.css" rel="stylesheet" />
+<script src="~/js/Voting/Index.js"></script>
 
-<style>
-    .container {
-        text-align: center;
-        background-color: #e1e1e1;
-        height: 100%;
-        width: 100%;
-        position: absolute;
-    }
-
-    img {
-        right: 0;
-        position: absolute;
-        height: 150px;
-        width: 105px;
-        border: solid 1px black;
-    }
-
-    .cinzaEscuro {
-        top: 50%;
-        margin-top: -200px;
-        width: 250px;
-        height: 60px;
-        right: 20px;
-        position: absolute;
-    }
-
-    b {
-        position: relative;
-        top: 10px;
-    }
-
-    .preto {
-        border: solid 2px;
-        top: 50%;
-        margin-top: -135px;
-        position: absolute;
-        background-color: #444;
-        height: 300px;
-        width: 250px;
-        right: 20px;
-    }
-
-    .cinzaClaro {
-        position: absolute;
-        border: solid 1px;
-        left: 50%;
-        margin-left: -370px;
-        top: 50%;
-        margin-top: -190px;
-        position: absolute;
-        height: 350px;
-        width: 500px;
-        background-color: snow;
-    }
-
-    .cinzaEscuro {
-        background-color: #b6b5b5;
-    }
-
-    .bnt {
-        margin: 10px;
-        background-color: black;
-        color: snow;
-        border-radius: 5px;
-        height: 30px;
-        width: 50px;
-    }
-
-    .teclado2 {
-        font-size: 11px;
-        position: absolute;
-        bottom: 20px;
-        left: 5px;
-        color: black;
-    }
-
-    .branco {
-        height: 40px;
-        width: 75px;
-    }
-
-    .laranja {
-        height: 40px;
-        width: 75px;
-        background-color: #E67401;
-    }
-
-    .verde {
-        height: 50px;
-        width: 75px;
-        background-color: green;
-    }
-</style>
+<div>
+    <h3>Urna eletrônica</h3>
+</div>
 <div class="container">
     <div class="branco">
         <div class="cinzaClaro">
-            <img src="https://lh3.googleusercontent.com/-3H3Zmv8LwnU/VHeSXvvTF-I/AAAAAAAABys/7QfuK6hvuqM/w406-h577-no/clarinha-vem.jpg" alt="" />
             <p>Número:</p>
-            <form action="">
-                <input size="1" maxlength="1" type="text" />
-                <input size="1" maxlength="1" type="text" />
-            </form>
+            <input style="pointer-events: none;" size="1" maxlength="1" type="text" readonly/>
+            <input style="pointer-events: none;" size="1" maxlength="1" type="text" readonly/>
             <p>Nome:</p>
         </div>
         <div class="cinzaEscuro">
@@ -126,25 +33,10 @@
             <button class="bnt click">9</button>
             <button class="bnt click">0</button>
             <div class="teclado2">
-                <button class="branco  click">BRANCO</button>
-                <button class="laranja  click">CORRIGE</button>
+                <button class="branco click">BRANCO</button>
+                <button class="laranja click">CORRIGE</button>
                 <button class="verde">CONFIRMA</button>
             </div>
         </div>
-        <link rel="stylesheet" href="" />
     </div>
-
-    <script>
-        $(".grande").on("click", function () {
-            $("#tudo").addClass("ativo");
-        })
-
-        var bleep = new Audio();
-        bleep.src = 'http://themezz.com/files/Sounds/Click-5.wav';
-
-        $(".click").on("click", function (event) {
-            event.preventDefault();
-            bleep.play();
-        })
-    </script>
 </div>  
