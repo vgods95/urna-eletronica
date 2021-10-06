@@ -1,7 +1,6 @@
 ﻿
 @{
-    Layout = null;
-    //Criar uma página de Layout
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -9,9 +8,14 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
 </head>
 <body>
-    Menu principal
+    <link href="~/css/MenuPrincipal.css" rel="stylesheet" />
+    <div class="container">
+        <div class="box bg-light">
+            <h4 class="d-inline-flex">Bem vindo ao sistema de votação do TSE Fake!</h4>
+            <p class="d-inline-flex">Selecione uma das opções no menu acima para continuar.</p>
+        </div>
+    </div>
 </body>
 </html>

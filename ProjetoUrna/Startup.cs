@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,10 +24,8 @@ namespace ProjetoUrna
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //conexaoControle = string.Concat("Server=zipersoft.mysql.database.azure.com;DataBase=controle;Uid=zipersoft@zipersoft;Pwd=Ziper@17112012;SslMode=Preferred;");
-
-            string connectionString = "Server=localhost;DataBase=urna_eletronica;Uid=root;Pwd=powerstock@STi3;Port=3333";
-            //services.AddDbContext<ContextoCliente>(dbContextOptions => dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+            string connectionString = "Server=localhost;DataBase=urna_eletronica;Uid=root;Pwd=run@ssf33;Port=3306";
+            services.AddDbContext<Context>(dbContextOptions => dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSession(options =>
             {
@@ -37,7 +36,7 @@ namespace ProjetoUrna
             services.AddDistributedMemoryCache();
             services.AddControllersWithViews();
 
-            //services.ConfigurarRepositorios();
+            services.ConfigurarRepositorios();
             services.AddRazorPages();
         }
 
