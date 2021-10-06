@@ -23,6 +23,21 @@ namespace ProjetoUrna
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //conexaoControle = string.Concat("Server=zipersoft.mysql.database.azure.com;DataBase=controle;Uid=zipersoft@zipersoft;Pwd=Ziper@17112012;SslMode=Preferred;");
+
+            string connectionString = "Server=localhost;DataBase=urna_eletronica;Uid=root;Pwd=powerstock@STi3;Port=3333";
+            //services.AddDbContext<ContextoCliente>(dbContextOptions => dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromHours(24);
+                options.Cookie.HttpOnly = true;
+            });
+
+            services.AddDistributedMemoryCache();
+            services.AddControllersWithViews();
+
+            //services.ConfigurarRepositorios();
             services.AddRazorPages();
         }
 
@@ -42,14 +57,16 @@ namespace ProjetoUrna
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllerRoute(
+                     name: "default",
+                     pattern: "{controller=Home}/{action=Index}");
             });
         }
     }
