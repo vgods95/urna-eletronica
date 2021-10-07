@@ -31,6 +31,8 @@
                 else if (!segundoDigito) {
                     votoFinalizado = true;
                     $('#SegundoDigitoLegenda').val(textoBotao);
+                    primeiroDigito = primeiroDigito.trim();
+                    segundoDigito = segundoDigito.trim();
 
                     var tecla = primeiroDigito.concat(textoBotao);
 

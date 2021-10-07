@@ -28,7 +28,7 @@ namespace ProjetoUrna.Controllers
             return View();
         }
 
-        //O Id do candidato não é mais um campo obrigatório, portanto se não tiver preenchido contabilizar como um voto branco ou nulo
+        
         [HttpPost]
         public async Task<JsonResult> vote(string candidatoJson)
         {
@@ -44,5 +44,15 @@ namespace ProjetoUrna.Controllers
             await _IVotingRepositorio.Inserir(voting);
             return Json("SUCESSO");
         }
+
+        //[HttpGet]
+        //public JsonResult votes()
+        //{
+        //    //Fazer um for para cada candidato, pegando a quantidade e calculando a porcentagem total de cada um deles
+        //    //Criar uma view model e retornar
+        //    //var teste = await _IVotingRepositorio.RecuperarQtdVotos(int candidatoId);
+        //    //O Id do candidato não é mais um campo obrigatório, portanto se não tiver preenchido contabilizar como um voto branco ou nulo
+        //    return Json("");
+        //}
     }
 }
