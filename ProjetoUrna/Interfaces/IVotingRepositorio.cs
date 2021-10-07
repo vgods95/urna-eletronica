@@ -4,6 +4,6 @@ namespace ProjetoUrna.Interfaces
 {
     public interface IVotingRepositorio : IRepositorioGenerico<Voting>
     {
-        int RecuperarQtdVotos(int candidatoId);
+        int RecuperarQtdVotos(int? candidatoId);
     }
 }

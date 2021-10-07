@@ -14,7 +14,7 @@ namespace ProjetoUrna.Repositorios
             _context = context;
         }
 
-        public int RecuperarQtdVotos(int candidatoId)
+        public int RecuperarQtdVotos(int? candidatoId)
         {
             try
             {

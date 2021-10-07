@@ -5,7 +5,7 @@ namespace ProjetoUrna.Interfaces
 {
     public interface IRepositorioGenerico<TEntity> where TEntity : class
     {
-        Task<IEnumerable<TEntity>> ListarTodos();
+        Task<List<TEntity>> ListarTodos();
         Task<TEntity> RecuperarPorId(int id);
         Task Inserir(TEntity entity);
         Task Alterar(TEntity entity);

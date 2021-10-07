@@ -1,8 +1,10 @@
-﻿using ProjetoUrna.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjetoUrna.Interfaces;
 using ProjetoUrna.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProjetoUrna.Repositorios
 {
@@ -22,7 +24,7 @@ namespace ProjetoUrna.Repositorios
                 return _context.Candidate.Where(x => x.Legenda == legenda).FirstOrDefault();
             }
             catch (Exception ex)
-            { 
+            {
                 throw ex;
             }
         }
@@ -35,6 +37,18 @@ namespace ProjetoUrna.Repositorios
                     return _context.Candidate.OrderBy(x => x.NomeCompleto).ToList<Candidate>();
                 else
                     return _context.Candidate.Where(x => x.NomeCompleto.Contains(descricao)).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public new async Task<List<Candidate>> ListarTodos()
+        {
+            try
+            {
+                return await _context.Candidate.Include(x => x.ListaVotos).ToListAsync();
             }
             catch (Exception ex)
             {

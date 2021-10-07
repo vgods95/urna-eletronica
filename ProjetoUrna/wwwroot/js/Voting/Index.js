@@ -2,6 +2,7 @@
     var candidatoEscolhido = null;
     var votoFinalizado = false;
 
+    //#region Botão Corrige
     $('#BotaoCorrige').click(function () {
         $('#AreaRenderizarNomeCandidato').html('');
         $('#AreaRenderizarNomeVice').html('');
@@ -10,8 +11,9 @@
         votoFinalizado = false;
         candidatoEscolhido = null;
     });
+    //#endregion
 
-
+    //#region Atribuição dos eventos de clique dos botões da urna
     $('button[name="BotaoUrna"]').click(function () {
         if (votoFinalizado == false) {
             var textoBotao = $(this).html();
@@ -53,7 +55,9 @@
             }
         }
     })
+    //#endregion
 
+    //#region Clique do botão Confirmar
     $('#BotaoConfirma').click(function () {
         if (votoFinalizado) {
             if (candidatoEscolhido != null) {
@@ -64,9 +68,9 @@
             }
 
             $.post('/Voting/vote', { candidatoJson }).done(function (data) {
-                //Fazer a telinha de fim. E pressionar qualquer botão para voltar a tela de votação
                 $('#BotaoCorrige').trigger('click');
             });
         }
     });
+    //#endregion
 });

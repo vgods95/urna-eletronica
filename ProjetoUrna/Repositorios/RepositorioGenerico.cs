@@ -67,7 +67,7 @@ namespace ProjetoUrna.Repositorios
             }
         }
 
-        public async Task<IEnumerable<TEntity>> ListarTodos()
+        public async Task<List<TEntity>> ListarTodos()
         {
             try
             {

@@ -1,5 +1,6 @@
 ﻿using ProjetoUrna.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ProjetoUrna.Interfaces
 {
@@ -7,5 +8,6 @@ namespace ProjetoUrna.Interfaces
     {
         List<Candidate> PesquisarPorNome(string descricao);
         Candidate PesquisarPorLegenda(int legenda);
+        new Task<List<Candidate>> ListarTodos();
     }
 }
