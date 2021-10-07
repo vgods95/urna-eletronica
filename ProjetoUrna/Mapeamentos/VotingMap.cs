@@ -16,7 +16,7 @@ namespace ProjetoUrna.Mapeamentos
             builder.Property(v => v.DataVoto).HasColumnName("data_voto");
             
 
-            builder.Property(v => v.CandidateId).IsRequired();
+            builder.Property(v => v.CandidateId).IsRequired(false);
             builder.Property(v => v.DataVoto).IsRequired();
 
             builder.HasOne(v => v.Candidate).WithMany(v => v.ListaVotos).HasForeignKey(v => v.CandidateId);

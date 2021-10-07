@@ -38,7 +38,7 @@ namespace ProjetoUrna.Controllers
                 {
                     Candidate candidate = JsonConvert.DeserializeObject<Candidate>(candidateJson);
                     Candidate legendaExistente = _ICandidateRepositorio.PesquisarPorLegenda(candidate.Legenda);
-                    
+
                     if (legendaExistente != null)
                         return Json(string.Concat("Falha ao gravar! Essa legenda já está cadastrada para o candidato ", legendaExistente.NomeCompleto));
                     else
@@ -68,6 +68,17 @@ namespace ProjetoUrna.Controllers
             }
 
             return Json("Ocorreram erros ao excluir. Contate o suporte!");
+        }
+
+        public JsonResult recuperarPorLegenda(string tecla)
+        {
+            int legenda = Convert.ToInt32(tecla);
+            Candidate candidate = _ICandidateRepositorio.PesquisarPorLegenda(legenda);
+
+            if (candidate != null)
+                return Json(JsonConvert.SerializeObject(candidate));
+            else
+                return Json("Voto nulo");
         }
     }
 }

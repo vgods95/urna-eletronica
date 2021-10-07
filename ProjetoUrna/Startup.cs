@@ -24,7 +24,7 @@ namespace ProjetoUrna
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = "Server=localhost;DataBase=urna_eletronica;Uid=root;Pwd=run@ssf33;Port=3306";
+            string connectionString = "Server=localhost;DataBase=urna_eletronica;Uid=root;Pwd=powerstock@STi3;Port=3333";
             services.AddDbContext<Context>(dbContextOptions => dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSession(options =>
