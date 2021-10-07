@@ -1,38 +1,70 @@
 ﻿$(document).ready(function () {
+    var candidatoEscolhido = null;
+    var votoFinalizado = false;
+
+    $('#BotaoCorrige').click(function () {
+        $('#AreaRenderizarNomeCandidato').html('');
+        $('#AreaRenderizarNomeVice').html('');
+        $('#PrimeiroDigitoLegenda').val('');
+        $('#SegundoDigitoLegenda').val('');
+        votoFinalizado = false;
+        candidatoEscolhido = null;
+    });
+
 
     $('button[name="BotaoUrna"]').click(function () {
-        var textoBotao = $(this).html();
-        if (textoBotao == 'BRANCO') {
-            $('#AreaRenderizarNomeCandidato').html('Voto em branco');
-            $('#AreaRenderizarNomeVice').html('');
-        }
-        else {
-            var primeiroDigito = $('#PrimeiroDigitoLegenda').val();
-            var segundoDigito = $('#SegundoDigitoLegenda').val();
-
-            if (!primeiroDigito) {
-                $('#PrimeiroDigitoLegenda').val(textoBotao);
+        if (votoFinalizado == false) {
+            var textoBotao = $(this).html();
+            if (textoBotao == 'BRANCO') {
+                $('#AreaRenderizarNomeCandidato').html('Voto em branco');
+                $('#AreaRenderizarNomeVice').html('');
+                candidatoEscolhido = null;
+                votoFinalizado = true;
             }
-            else if (!segundoDigito) {
-                $('#SegundoDigitoLegenda').val(textoBotao);
+            else {
+                var primeiroDigito = $('#PrimeiroDigitoLegenda').val();
+                var segundoDigito = $('#SegundoDigitoLegenda').val();
 
-                var tecla = primeiroDigito.concat(textoBotao);
+                if (!primeiroDigito) {
+                    $('#PrimeiroDigitoLegenda').val(textoBotao);
+                }
+                else if (!segundoDigito) {
+                    votoFinalizado = true;
+                    $('#SegundoDigitoLegenda').val(textoBotao);
 
-                $.get('/Candidate/recuperarPorLegenda', { tecla }).done(function (data) {
-                    if (data == 'Voto nulo') {
-                        $('#AreaRenderizarNomeCandidato').html(data);
-                        $('#AreaRenderizarNomeVice').html('');
-                    }
-                    else {
-                        var candidate = JSON.parse(data);
-                        $('#AreaRenderizarNomeCandidato').html(candidate.NomeCompleto);
-                        $('#AreaRenderizarNomeVice').html(candidate.NomeVice);
-                    }
-                });
+                    var tecla = primeiroDigito.concat(textoBotao);
+
+                    $.get('/Candidate/recuperarPorLegenda', { tecla }).done(function (data) {
+                        if (data == 'Voto nulo') {
+                            $('#AreaRenderizarNomeCandidato').html(data);
+                            $('#AreaRenderizarNomeVice').html('');
+                            candidatoEscolhido = null;
+                        }
+                        else {
+                            var candidate = JSON.parse(data);
+                            $('#AreaRenderizarNomeCandidato').html(candidate.NomeCompleto);
+                            $('#AreaRenderizarNomeVice').html(candidate.NomeVice);
+                            candidatoEscolhido = candidate;
+                        }
+                    });
+                }
             }
         }
     })
 
-    //Fazer a telinha de fim. E pressionar qualquer botão para voltar a tela de votação
-            //O Id do candidato não é mais um campo obrigatório, portanto se não tiver preenchido contabilizar como um voto branco ou nulo
+    $('#BotaoConfirma').click(function () {
+        if (votoFinalizado) {
+            if (candidatoEscolhido != null) {
+                var candidatoJson = JSON.stringify(candidatoEscolhido);
+            }
+            else {
+                var candidatoJson = '';
+            }
+
+            $.post('/Voting/vote', { candidatoJson }).done(function (data) {
+                //Fazer a telinha de fim. E pressionar qualquer botão para voltar a tela de votação
+                $('#BotaoCorrige').trigger('click');
+            });
+        }
+    });
 });
